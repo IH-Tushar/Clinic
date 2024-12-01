@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery - SMS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lightbox CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+    <%- include('partials/navbar') %>
+    
+    <main class="container mx-auto px-4 py-8">
+        <h1 class="text-4xl font-bold text-center text-gray-800 mb-8">Our Gallery</h1>
+        
+        <!-- Gallery Filter -->
+        <div class="flex justify-center mb-8 space-x-4">
+            <button class="filter-btn active px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition">All</button>
+            <button class="filter-btn px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 transition">Campus</button>
+            <button class="filter-btn px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 transition">Events</button>
+            <button class="filter-btn px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 transition">Students</button>
+        </div>
+
+        <!-- Gallery Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Gallery Items -->
+            <div class="gallery-item campus" data-category="campus">
+                <a href="/images/campus1.jpg" data-lightbox="gallery" data-title="Campus Main Building">
+                    <div class="relative overflow-hidden rounded-lg shadow-lg group">
+                        <img src="/images/campus1.jpg" alt="Campus" class="w-full h-64 object-cover transition duration-300 group-hover:transform group-hover:scale-110">
+                        <div class="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center">
+                            <span class="text-white text-lg font-semibold">Campus Main Building</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Add more gallery items with different categories -->
+            <div class="gallery-item events" data-category="events">
+                <a href="/images/event1.jpg" data-lightbox="gallery" data-title="Annual Function">
+                    <div class="relative overflow-hidden rounded-lg shadow-lg group">
+                        <img src="/images/event1.jpg" alt="Event" class="w-full h-64 object-cover transition duration-300 group-hover:transform group-hover:scale-110">
+                        <div class="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center">
+                            <span class="text-white text-lg font-semibold">Annual Function</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Add more items as needed -->
+        </div>
+    </main>
+
+    <%- include('partials/footer') %>
+
+    <!-- Lightbox JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
+
+    <!-- Gallery Filter Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const galleryItems = document.querySelectorAll('.gallery-item');
+
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    filterBtns.forEach(b => b.classList.remove('active', 'bg-blue-500', 'text-white'));
+                    filterBtns.forEach(b => b.classList.add('bg-gray-200', 'text-gray-700'));
+                    
+                    // Add active class to clicked button
+                    this.classList.add('active', 'bg-blue-500', 'text-white');
+                    this.classList.remove('bg-gray-200', 'text-gray-700');
+
+                    const category = this.textContent.toLowerCase();
+
+                    galleryItems.forEach(item => {
+                        if (category === 'all' || item.dataset.category === category) {
+                            item.style.display = 'block';
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

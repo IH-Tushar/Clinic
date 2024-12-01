@@ -1,0 +1,193 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - SMS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+    <%- include('../partials/navbar') %>
+    
+    <main class="container mx-auto px-4 py-8">
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <div class="flex justify-between items-center mb-6">
+                <h1 class="text-2xl font-bold">Admin Dashboard</h1>
+                <a href="/admin/logout" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">
+                    Logout
+                </a>
+            </div>
+            
+            <div class="mb-8">
+                <h2 class="text-xl font-semibold mb-4">Add New Student</h2>
+                <form id="addStudentForm" class="space-y-4" enctype="multipart/form-data">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-gray-700 mb-2" for="registrationNumber">
+                                Registration Number
+                            </label>
+                            <input type="text" id="registrationNumber" name="registrationNumber" required
+                                class="w-full px-3 py-2 border rounded-md">
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 mb-2" for="rollNumber">
+                                Roll Number
+                            </label>
+                            <input type="text" id="rollNumber" name="rollNumber" required
+                                class="w-full px-3 py-2 border rounded-md">
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-gray-700 mb-2" for="registrationCard">
+                                Registration Card Drive Link
+                            </label>
+                            <input type="url" id="registrationCard" name="registrationCard" required
+                                placeholder="https://drive.google.com/file/d/..."
+                                class="w-full px-3 py-2 border rounded-md">
+                            <p class="text-sm text-gray-500 mt-1">
+                                How to share: 
+                                1. Open your file in Google Drive 
+                                2. Click 'Share' 
+                                3. Click 'Copy link' 
+                                4. Make sure anyone with the link can view
+                            </p>
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 mb-2" for="resultCard">
+                                Result Card Drive Link
+                            </label>
+                            <input type="url" id="resultCard" name="resultCard" required
+                                placeholder="https://drive.google.com/file/d/..."
+                                class="w-full px-3 py-2 border rounded-md">
+                            <p class="text-sm text-gray-500 mt-1">
+                                Paste the sharing link from Google Drive (must be accessible to anyone with the link)
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" 
+                        class="bg-green-500 text-white px-6 py-2 rounded hover:bg-green-600">
+                        Add Student
+                    </button>
+                </form>
+            </div>
+            
+            <div>
+                <h2 class="text-xl font-semibold mb-4">Student Records</h2>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full table-auto">
+                        <thead>
+                            <tr class="bg-gray-100">
+                                <th class="px-4 py-2 text-left">Registration Number</th>
+                                <th class="px-4 py-2 text-left">Roll Number</th>
+                                <th class="px-4 py-2 text-left">Registration Card</th>
+                                <th class="px-4 py-2 text-left">Result Card</th>
+                                <th class="px-4 py-2 text-left">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% students.forEach(student => { %>
+                                <tr class="border-b">
+                                    <td class="px-4 py-2"><%= student.registrationNumber %></td>
+                                    <td class="px-4 py-2"><%= student.rollNumber %></td>
+                                    <td class="px-4 py-2">
+                                        <a href="<%= student.registrationCardPath %>" 
+                                           class="text-blue-500 hover:text-blue-700"
+                                           target="_blank" rel="noopener noreferrer">
+                                            View
+                                        </a>
+                                    </td>
+                                    <td class="px-4 py-2">
+                                        <a href="<%= student.resultCardPath %>"
+                                           class="text-blue-500 hover:text-blue-700"
+                                           target="_blank" rel="noopener noreferrer">
+                                            View
+                                        </a>
+                                    </td>
+                                    <td class="px-4 py-2">
+                                        <div class="flex space-x-2">
+                                            <a href="/admin/edit/<%= student.registrationNumber %>"
+                                               class="text-blue-500 hover:text-blue-700">
+                                                Edit
+                                            </a>
+                                            <button class="text-red-500 hover:text-red-700"
+                                                    onclick="deleteStudent('<%= student.registrationNumber %>')">
+                                                Delete
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            <% }); %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <%- include('../partials/footer') %>
+    
+    <script>
+        document.getElementById('addStudentForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = new FormData(e.target);
+            
+            // Clean up the URLs by removing @ symbol and trimming
+            const registrationCard = formData.get('registrationCard').replace(/^@/, '').trim();
+            const resultCard = formData.get('resultCard').replace(/^@/, '').trim();
+            
+            try {
+                const response = await fetch('/api/students', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        registrationNumber: formData.get('registrationNumber'),
+                        rollNumber: formData.get('rollNumber'),
+                        registrationCard: registrationCard,
+                        resultCard: resultCard
+                    })
+                });
+                
+                const data = await response.json();
+                if (data.success) {
+                    window.location.reload();
+                } else {
+                    alert('Error adding student: ' + data.message);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error adding student');
+            }
+        });
+
+        async function deleteStudent(registrationNumber) {
+            if (!confirm('Are you sure you want to delete this student?')) return;
+            
+            try {
+                const response = await fetch(`/api/students/${registrationNumber}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                const data = await response.json();
+                if (data.success) {
+                    window.location.reload();
+                } else {
+                    alert('Error deleting student: ' + data.message);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error deleting student');
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Management System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+    <%- include('partials/navbar') %>
+    
+    <main class="container mx-auto px-4 py-8">
+        <div class="text-center">
+            <h1 class="text-4xl font-bold text-gray-800 mb-4">IH-TUSHAR Welcome to Student Management System</h1>
+            <p class="text-lg text-gray-600 mb-8">Access your academic documents easily and securely</p>
+            
+            <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h2 class="text-2xl font-semibold mb-4">For Students</h2>
+                    <p class="mb-4">Access your registration card and result card easily</p>
+                    <a href="/results" class="inline-block bg-blue-500 text-white px-6 py-2 rounded hover:bg-blue-600">
+                        Search Results
+                    </a>
+                </div>
+                
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h2 class="text-2xl font-semibold mb-4">For Admin</h2>
+                    <p class="mb-4">Manage student records and documents</p>
+                    <a href="/admin" class="inline-block bg-green-500 text-white px-6 py-2 rounded hover:bg-green-600">
+                        Admin Dashboard
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <%- include('partials/footer') %>
+</body>
+</html>

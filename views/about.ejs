@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - SMS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+    <%- include('partials/navbar') %>
+    
+    <main class="container mx-auto px-4 py-8">
+        <div class="max-w-3xl mx-auto bg-white p-8 rounded-lg shadow-md">
+            <h1 class="text-3xl font-bold mb-6">About Student Management System</h1>
+            
+            <div class="space-y-4">
+                <p class="text-gray-700">
+                    The Student Management System (SMS) is a comprehensive platform designed to streamline the management
+                    of student records and academic documents.
+                </p>
+                
+                <h2 class="text-2xl font-semibold mt-6">Our Features</h2>
+                <ul class="list-disc pl-6 space-y-2">
+                    <li>Easy access to registration cards and result cards</li>
+                    <li>Secure document storage and retrieval</li>
+                    <li>Simple search functionality using registration and roll numbers</li>
+                    <li>Administrative dashboard for managing student records</li>
+                </ul>
+                
+                <h2 class="text-2xl font-semibold mt-6">How It Works</h2>
+                <p class="text-gray-700">
+                    Students can easily search for their academic documents using their registration number and roll number.
+                    The system provides instant access to registration cards and result cards in PDF format.
+                </p>
+            </div>
+        </div>
+    </main>
+    
+    <%- include('partials/footer') %>
+</body>
+</html>
