@@ -1,45 +1,104 @@
-<!-- navbar -->
-<nav class="bg-white shadow-md">
-    <div class="container mx-auto px-4">
-        <div class="flex justify-between items-center h-16">
-            <!-- Logo Section -->
-            <a href="/" class="flex items-center">
-                <img src="your-logo-path.png" alt="Logo" class="h-10 w-auto">
-            </a>
-
-                        <!-- Social Media Icons -->
-            <div class="hidden md:flex space-x-3">
-                <a href="https://facebook.com" target="_blank" class="text-gray-600 hover:text-blue-600">
-                    <i class="fab fa-facebook-f text-xl"></i>
-                </a>
-                <a href="https://instagram.com" target="_blank" class="text-gray-600 hover:text-pink-600">
-                    <i class="fab fa-instagram text-xl"></i>
-                </a>
-                <a href="https://linkedin.com" target="_blank" class="text-gray-600 hover:text-blue-800">
-                    <i class="fab fa-linkedin-in text-xl"></i>
-                </a>
-            </div>
-
-            <!-- Navigation Links -->
-            <div class="hidden md:flex space-x-4">
-                <a href="/" class="text-gray-600 hover:text-gray-800">Home one</a>
-                <a href="/about" class="text-gray-600 hover:text-gray-800">About</a>
-                <a href="/results" class="text-gray-600 hover:text-gray-800">Course Results</a>
-                <a href="/contact" class="text-gray-600 hover:text-gray-800">Contact Us</a>
-                <a href="/gallery" class="text-gray-600 hover:text-gray-800">Gallery</a>
-            </div>
-
-            <!-- Find Your Result Button -->
-            <a href="/results" class="hidden md:inline-block bg-blue-600 text-white py-2 px-4 rounded-md">
-                Find Your Result
-            </a>
-
-            <!-- Mobile Menu Button -->
-            <button class="md:hidden">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                </svg>
-            </button>
+ 
+ <header>
+  <script src="https://kit.fontawesome.com/9710cf8566.js" crossorigin="anonymous"></script>
+ </header>
+ <!-- navbar start -->
+ <nav>
+  <header class="bg-gradient-to-r from-green-100 to-white shadow-md">
+    <div class="container mx-auto px-4 flex justify-between items-center py-3">
+      <!-- Logo -->
+      <div class="flex items-center justify-center gap-3">
+        <img
+          src="/img/logo.png"
+          alt="Logo"
+          class="h-12 w-12 rounded-full"
+        />
+        <div class="rounded-full border border-[#131987] p-2 px-4">
+          <i class="fa-brands fa-facebook-f text-[#131987] text-base"></i>
         </div>
+        <div class="rounded-full border border-[#131987] p-2 px-4">
+          <i class="fa-brands fa-instagram text-[#131987] text-base"></i>
+        </div>
+        <div class="rounded-full border border-[#131987] p-2 px-4">
+          <i class="fa-brands fa-linkedin-in text-[#131987] text-base"></i>
+         
+        </div>
+      </div>
+
+      <!-- Desktop Navbar -->
+      <nav
+        class="hidden md:flex space-x-6 text-gray-700 font-medium items-center"
+      >
+        <a href="/" class="hover:text-green-600">Home</a>
+        <a href="/about" class="hover:text-green-600">About</a>
+        <a href="/results" class="hover:text-green-600">Course Results</a>
+        <a href="/contact" class="hover:text-green-600">Contact Us</a>
+        <a href="/gallery" class="hover:text-green-600">Gallery</a>
+      </nav>
+
+      <!-- Button -->
+      <a href="/results" 
+   class="hidden md:flex items-center space-x-2 border border-blue-700 text-blue-700 px-4 py-2 rounded-md transition duration-500 ease-in-out transform hover:shadow-lg hover:-translate-y-1 hover:border-blue-400 group">
+  <span class="group-hover:text-blue-500">Find Your Result</span>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+    class="w-5 h-5 transition-transform duration-500 group-hover:rotate-12"
+  >
+    <path
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="2"
+      d="M21 21l-4.35-4.35m1.6-4.15a6 6 0 11-12 0 6 6 0 0112 0z"
+    />
+  </svg>
+</a>
+
+
+      <!-- Mobile Menu Icon -->
+      <div class="md:hidden">
+        <button id="menu-btn" class="text-green-600 focus:outline-none">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            class="w-8 h-8"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 6h16M4 12h16m-7 6h7"
+            />
+          </svg>
+        </button>
+      </div>
     </div>
-</nav>
+
+  <!-- Mobile Dropdown Menu -->
+<div
+id="mobile-menu"
+class="hidden md:hidden bg-white shadow-md space-y-4 text-gray-700 font-medium px-4 py-2 transition-opacity duration-300 ease-in-out opacity-0"
+>
+<a href="/" class="block hover:text-green-600 transition-colors duration-200">Home</a>
+<a href="/about" class="block hover:text-green-600 transition-colors duration-200">About</a>
+<a href="/results" class="block hover:text-green-600 transition-colors duration-200">Course Results</a>
+<a href="/contact" class="block hover:text-green-600 transition-colors duration-200">Contact Us</a>
+<a href="/gallery" class="block hover:text-green-600 transition-colors duration-200">Gallery</a>
+</div>
+
+<script>
+const menuBtn = document.getElementById('menu-btn');
+const mobileMenu = document.getElementById('mobile-menu');
+
+menuBtn.addEventListener('click', () => {
+  mobileMenu.classList.toggle('hidden');
+  mobileMenu.classList.toggle('opacity-0'); // Toggle opacity for fade effect
+  mobileMenu.classList.toggle('opacity-100'); // Show menu
+});
+</script>
+  </nav>    
+ <!-- navbar end -->
