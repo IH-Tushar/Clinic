@@ -52,6 +52,10 @@ app.get('/results', (req, res) => {
   res.render('results');
 });
 
+app.get('/result', (req, res) => {
+  res.render('result');
+});
+
 
 // Gallery Route 
 app.get('/gallery', (req, res) => {
